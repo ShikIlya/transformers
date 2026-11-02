@@ -1,6 +1,7 @@
 from transformers import AutoTokenizer
 import torch
 import transformers
+from src.tokenization import tokenize_texts
 
 print('torch version ', torch.__version__)
 print('transformers version ', transformers.__version__)
@@ -31,16 +32,7 @@ texts = [
     "Terrible movie, waste of time."
 ]
 
-def tokenize_texts(texts, max_length=128):
-    return tokenizer(
-        texts,
-        padding=True,
-        truncation=True,
-        max_length=max_length,
-        return_tensors="pt"
-    )
-
-tokens = tokenize_texts(texts)
+tokens = tokenize_texts(texts=texts, tokenizer=tokenizer)
 
 print(f'Shape: {tokens["input_ids"].shape}')
 print(f'Attention mask:\n{tokens["attention_mask"]}')
